@@ -1,5 +1,7 @@
 local versionx = "0.1"
 
+Wait(10)
+
 --[[
 ESP + Chams
 
