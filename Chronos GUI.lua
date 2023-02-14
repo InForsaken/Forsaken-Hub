@@ -1,4 +1,4 @@
-local versionx = "0.1"
+local versionx = "0.2"
 
 Wait(10)
 
@@ -257,7 +257,7 @@ generaltab:Toggle("Infinite Jump", false, function(inf)
 	infjumpenabled = inf
 end)
 
-generaltab:Toggle("Click TP", false, function(ctp)
+generaltab:Toggle("Click TP: Hold Control", false, function(ctp)
 	clicktpenabled = ctp
 end)
 
