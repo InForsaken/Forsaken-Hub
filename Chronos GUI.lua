@@ -1,7 +1,5 @@
 local versionx = "0.2"
 
--- Wait(10)
-
 --[[
 if not game.IsLoaded(game) then
    		repeat task.wait() until game.IsLoaded(game)
