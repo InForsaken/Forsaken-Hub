@@ -1,6 +1,5 @@
 local versionx = "0.2"
 
-Wait(15)
 --[[
 ESP + Chams
 
