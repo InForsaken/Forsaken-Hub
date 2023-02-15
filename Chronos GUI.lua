@@ -1,6 +1,12 @@
 local versionx = "0.2"
 
+-- Wait(10)
+
 --[[
+if not game.IsLoaded(game) then
+   		repeat task.wait() until game.IsLoaded(game)
+	end
+
 ESP + Chams
 
 Fling /
@@ -17,19 +23,10 @@ local mouse = game.Players.LocalPlayer:GetMouse()
 local UserInputService = game:GetService("UserInputService")
 local Global = getgenv and getgenv() or _G
 
-local bindtp
-local bindfly
-local bindtfly
-local bindnc
-local bindij
-local bindctp
-
-local bkeytp
-local bkeyfly
-local bkeytfly
-local bkeync
-local bkeyij
-local bkeyctp
+local bindtp = "="
+local bindfly = "E"
+local bindnc = "B"
+local bindctp = "V"
 
 -- Loading Discord GUI
 local exec = tostring(identifyexecutor())
@@ -42,19 +39,19 @@ local feserver = win:Server("Animations       ", "http://www.roblox.com/asset/?i
 local adminserver = win:Server("Admin            ", "http://www.roblox.com/asset/?id=11579371312")
 
 -- Subsections
-local generaltab = mainserver:Channel("[][] General")
-local localtab = mainserver:Channel("[][] Local Player")
-local teleporttab = mainserver:Channel("[][] Teleport")
-local esptab = mainserver:Channel("[][] ESP")
-local utilitytab = mainserver:Channel("[][] Utility")
-local keytab = mainserver:Channel("[][] Key Binds")
+local generaltab = mainserver:Channel("🌍 General")
+local localtab = mainserver:Channel("👷 Local Player")
+local teleporttab = mainserver:Channel("💨 Teleport")
+local esptab = mainserver:Channel("💥 ESP")
+local utilitytab = mainserver:Channel("🔨 Utility")
+local keytab = mainserver:Channel("🔑 Key Binds")
 
-local sextab = feserver:Channel("[][] Sex")
-local cooltab = feserver:Channel("[][] Cool")
-local stoptab = feserver:Channel("[][] Stop")
+local sextab = feserver:Channel("🍆 Sex")
+local cooltab = feserver:Channel("🔥 Cool")
+local stoptab = feserver:Channel("✋ Stop")
 
-local commandtab = adminserver:Channel("[][] Commands")
-local creditstab = adminserver:Channel("[][] Credits")
+local commandtab = adminserver:Channel("📜 Commands")
+local creditstab = adminserver:Channel("✨ Credits")
 
 -- # Setup Functions
 local changews
@@ -231,7 +228,6 @@ function GetCharacter()
 	end
  end
  
- 
  UserInputService.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 and UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
 		if clicktpenabled == true then
@@ -240,26 +236,41 @@ function GetCharacter()
 	end
  end)
 
+ IYMouse.KeyDown:Connect(function(Key)
+	if clicktpenabled == true and Key == "v" then
+		Teleport(mouse.Hit.p)
+	end
+end)
+
+ --[[
+ Hold CTRL + Click
+ UserInputService.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 and UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
+		if clicktpenabled == true then
+			Teleport(mouse.Hit.p)
+		end
+	end
+ end)
+]]
 -- ESP Functions
-
-
 
 -- # Main Section
 -- General
-generaltab:Toggle("NoClip", false, function(nc)
-	getgenv().NoClip = nc
-	Phase()
-end)
 
 generaltab:Toggle("Infinite Jump", false, function(inf)
 	infjumpenabled = inf
 end)
 
-generaltab:Toggle("Click TP: Hold Control", false, function(ctp)
+local nctoggle = generaltab:Toggle(("NoClip"), false, function(nc)
+	getgenv().NoClip = nc
+	Phase()
+end)
+
+generaltab:Toggle(("Enable Click TP: Press \""..bindctp.."\" to Teleport"), false, function(ctp)
 	clicktpenabled = ctp
 end)
 
-generaltab:Toggle("Enable Fly: Press \"E\" to Toggle", false, function(toggle)
+generaltab:Toggle(("Enable Fly: Press \""..bindfly.."\" to Toggle Flight"), false, function(toggle)
     enableflight = toggle
 end)
 
@@ -333,6 +344,23 @@ teleporttab:Button("Teleport", function()
     end
 end)
 
+local enabletp = false
+
+teleporttab:Toggle(("Enable Key TP: Press \""..bindtp.."\" to Teleport to Player"), false, function(toggle)
+    enabletp = toggle
+end)
+
+IYMouse.KeyDown:Connect(function(Key)
+	if enabletp == true and Key == "=" then
+		local pdlength = #playerdisplay
+    	for i = 0, pdlength, 1 do
+        	if targetuser == playerdisplay[i] then
+            	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[playertable[i]].Character.HumanoidRootPart.CFrame
+        	end
+    	end
+	end
+end)
+
 --[[ Refresh Players Script, needs to be edited so it works
 teleporttab:Button("Refresh Playerlist", function()
     tptarget:Clear()
@@ -383,8 +411,33 @@ utilitytab:Button("Give BTools", function()
 	tool5.BinType = "Grab"
 end)
 utilitytab:Button("Clarify Client (Fog + Lighting)", function()
-	loadstring(game:HttpGet "https://pastebin.com/raw/ec0AcW7a")()
+	local lighting = game:GetService("Lighting");
+	lighting.Ambient = Color3.fromRGB(255, 255, 255);
+	lighting.Brightness = 1;
+	lighting.FogEnd = 1e10;
+	for i, v in pairs(lighting:GetDescendants()) do
+		if v:IsA("BloomEffect") or v:IsA("BlurEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("SunRaysEffect") then
+			v.Enabled = false;
+		end;
+	end;
+	lighting.Changed:Connect(function()
+		lighting.Ambient = Color3.fromRGB(255, 255, 255);
+		lighting.Brightness = 1;
+		lighting.FogEnd = 1e10;
+	end);
+	spawn(function()
+		local character = game:GetService("Players").LocalPlayer.Character;
+		while wait() do
+			repeat wait() until character ~= nil;
+			if not character.HumanoidRootPart:FindFirstChildWhichIsA("PointLight") then
+				local headlight = Instance.new("PointLight", character.HumanoidRootPart);
+				headlight.Brightness = 1;
+				headlight.Range = 60;
+			end;
+		end;
+	end);
 end)
+
 utilitytab:Button("Rejoin", function()
 	wait(.1)
 	game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
@@ -394,21 +447,13 @@ utilitytab:Button("Rejoin", function()
 		wait()
 	end
 end)
-
--- Key Binds
 --[[
-bindtp = keytab:Bind("Teleport", "T")
-bindfly = keytab:Bind("Fly", "E")
-bindtfly = keytab:Bind("Toggle Fly", "]")
-bindnc = keytab:Bind("Toggle NoClip", "N")
-bindij = keytab:Bind("Toggle Infinite Jump", "J")
-bindctp = keytab:Bind("Click TP", "c")
-generaltab:Button("GOOD UP TO HERE")
+keytab:Bind("Teleport", Enum.KeyCode.T, function(tp) 
+	
+end)
 ]]
 
 -- # Filtering Enabled Section
-
-
 -- FE Animations
 
 sextab:Button("Fuck", function()
