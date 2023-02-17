@@ -1,4 +1,4 @@
-local versionx = "0.3"
+local versionx = "0.4"
 
 --[[
 ESP + Chams
@@ -46,6 +46,7 @@ local bindtp = "="
 local bindfly = "E"
 local bindnc = "B"
 local bindctp = "V"
+local bindsp = "X"
 
 -- Loading Discord GUI
 local exec = tostring(identifyexecutor())
@@ -80,6 +81,7 @@ local CharParts = {}
 getgenv().NoClip = false
 
 -- WSJP On Death
+--[[
 Players.PlayerAdded:Connect(function(player)
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
     game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
@@ -90,6 +92,7 @@ Players.PlayerAdded:Connect(function(player)
         end
     end)
 end)
+]]
 
 -- Flight Functions
 function getRoot(char)
@@ -207,7 +210,6 @@ IYMouse.KeyDown:Connect(function(Key)
 end)
 
 -- NoClip Functions
-
 function Phase()
 	game:GetService("RunService").Stepped:connect(function()
     	if getgenv().NoClip then
@@ -235,6 +237,23 @@ function Phase()
 	end)
 end
 
+local ncenabled = false
+local clip = false
+
+IYMouse.KeyDown:Connect(function(Key)
+	if ncenabled == true and Key == "b" then
+        if clip == true then
+            getgenv().NoClip = false
+	        Phase()
+            clip = false
+        elseif clip == false then
+            getgenv().NoClip = true
+	        Phase()
+            clip = true
+        end
+	end
+end)
+
 -- Click Teleport Functions
 function GetCharacter()
 	return game.Players.LocalPlayer.Character
@@ -247,7 +266,7 @@ function GetCharacter()
 	end
  end
  
- UserInputService.InputBegan:Connect(function(input)
+UserInputService.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 and UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
 		if clicktpenabled == true then
 			Teleport(Mouse.Hit.p)
@@ -255,9 +274,25 @@ function GetCharacter()
 	end
  end)
 
- IYMouse.KeyDown:Connect(function(Key)
+IYMouse.KeyDown:Connect(function(Key)
 	if clicktpenabled == true and Key == "v" then
 		Teleport(Mouse.Hit.p)
+	end
+end)
+
+-- Sprint Function
+local sprintenabled = false
+local fast = false
+
+IYMouse.KeyDown:Connect(function(Key)
+	if sprintenabled == true and Key == "x" then
+        if fast == true then
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+            fast = false
+        elseif fast == false then
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 60
+            fast = true
+        end
 	end
 end)
 
@@ -1195,13 +1230,16 @@ generaltab:Toggle("Infinite Jump", false, function(inf)
 	infjumpenabled = inf
 end)
 
-local nctoggle = generaltab:Toggle(("NoClip"), false, function(nc)
-	getgenv().NoClip = nc
-	Phase()
+generaltab:Toggle(("Enable Sprint: Press \""..bindsp.."\" to Toggle Run"), false, function(sp)
+	sprintenabled = sp
 end)
 
 generaltab:Toggle(("Enable Click TP: Press \""..bindctp.."\" to Teleport"), false, function(ctp)
 	clicktpenabled = ctp
+end)
+
+generaltab:Toggle(("Enable NoClip: Press \""..bindnc.."\" to Toggle Clip"), false, function(nc)
+	ncenabled = nc
 end)
 
 generaltab:Toggle(("Enable Fly: Press \""..bindfly.."\" to Toggle Flight"), false, function(toggle)
@@ -1239,9 +1277,9 @@ localtab:Textbox("Change Jump Power", "Enter Jump Power", false, function(jp)
     changejp = jp
     game.Players.LocalPlayer.Character.Humanoid.JumpPower = jp
 end)
-localtab:Toggle("Set on Death:", false, function(set)
-    togglewsjp = set
-end)
+-- localtab:Toggle("Set on Death:", false, function(set)
+--    togglewsjp = set
+-- end)
 localtab:Button("Set Walkspeed + Jump Power", function()
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = changews
     game.Players.LocalPlayer.Character.Humanoid.JumpPower = changejp
