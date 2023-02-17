@@ -7,7 +7,7 @@ Fling /
 ]]
 
 ---// Loading Section \\---
-repeat  task.wait() until game:IsLoaded()
+repeat task.wait() until game:IsLoaded()
 
 -- # Object Creation
 local Global = getgenv and getgenv() or _G
