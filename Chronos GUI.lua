@@ -1,9 +1,8 @@
-local versionx = "0.4"
+local versionx = "0.55"
 
 --[[
-ESP + Chams
-
-Fling /
+Chams
+Fling
 ]]
 
 ---// Loading Section \\---
@@ -262,21 +261,21 @@ function GetCharacter()
  function Teleport(pos)
 	local Char = GetCharacter()
 	if Char then
-		Char:MoveTo(pos)
+		Char:MoveTo(Vector3.new(pos.x, pos.y + 5, pos.z)) 
 	end
  end
  
 UserInputService.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 and UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
 		if clicktpenabled == true then
-			Teleport(Mouse.Hit.p)
+			Teleport(Mouse.Hit)
 		end
 	end
  end)
 
 IYMouse.KeyDown:Connect(function(Key)
 	if clicktpenabled == true and Key == "v" then
-		Teleport(Mouse.Hit.p)
+		Teleport(Mouse.Hit)
 	end
 end)
 
@@ -1144,9 +1143,6 @@ if Options.Crosshair.Value then
     CX.From = Vector2.new((Camera.ViewportSize.X / 2) + 8, (Camera.ViewportSize.Y / 2));
     CY.To = Vector2.new((Camera.ViewportSize.X / 2), (Camera.ViewportSize.Y / 2) - 8);
     CY.From = Vector2.new((Camera.ViewportSize.X / 2), (Camera.ViewportSize.Y / 2) + 8);
-else
-    CX.Visible = false;
-    CY.Visible = false;
 end
 
 Options.MenuOpen.value = false
