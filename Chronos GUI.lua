@@ -1,4 +1,4 @@
-local versionx = "0.55"
+local versionx = "0.6"
 
 --[[
 Chams
@@ -1428,6 +1428,12 @@ utilitytab:Button("Clarify Client (Fog + Lighting)", function()
 			end;
 		end;
 	end);
+	game.Lighting.FogEnd = 100000
+	for i,v in pairs(game.Lighting:GetDescendants()) do
+		if v:IsA("Atmosphere") then
+			v:Destroy()
+		end
+	end
 end)
 
 utilitytab:Button("Rejoin", function()
