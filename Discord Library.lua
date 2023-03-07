@@ -85,6 +85,7 @@ local Discord = Instance.new("ScreenGui")
 Discord.Name = "Discord"
 Discord.Parent = game.Players.LocalPlayer.PlayerGui
 Discord.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+Discord.ResetOnSpawn = false
 
 function DiscordLib:Window(text)
 	local currentservertoggled = ""
