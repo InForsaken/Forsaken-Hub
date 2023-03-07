@@ -1259,6 +1259,7 @@ end)
 generaltab:Textbox("Set Flyspeed", "Default: 100", false, function(speed)
     iyflyspeed = speed / 100
 end)
+iyflyspeed = 3
 
 generaltab:Button("Respawn", function()
 	game.Players.LocalPlayer.Character.Head:Destroy()
