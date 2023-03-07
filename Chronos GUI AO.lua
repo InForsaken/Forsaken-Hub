@@ -103,7 +103,7 @@ local enableflight
 local currentfly = false
 local FLYING = false
 local QEfly = true
-local iyflyspeed = 1
+local iyflyspeed = 3
 local vehicleflyspeed = 1
 local IYMouse = Players.LocalPlayer:GetMouse()
 function sFLY(vfly)
