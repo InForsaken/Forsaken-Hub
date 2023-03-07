@@ -1,4 +1,4 @@
-local versionx = "0.6"
+local versionx = "0.61"
 
 --[[
 Chams
@@ -50,7 +50,7 @@ local bindsp = "X"
 -- Loading Discord GUI
 local exec = tostring(identifyexecutor())
 local DiscordLib = loadstring(game:HttpGet "https://pastebin.com/raw/iXM5yY4w")()
-local win = DiscordLib:Window("💫 Chronos GUI "..versionx.." - "..exec)
+local win = DiscordLib:Window("💫 Chronos GUI v"..versionx.." - "..exec)
 
 -- Sections
 local mainserver = win:Server("Main Section     ", "http://www.roblox.com/asset/?id=11579310982")
