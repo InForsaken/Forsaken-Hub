@@ -1,4 +1,4 @@
-local versionx = "0.61"
+local versionx = "0.7"
 
 --[[
 Chams
@@ -49,25 +49,20 @@ local bindsp = "X"
 
 -- Loading Discord GUI
 local exec = tostring(identifyexecutor())
-local DiscordLib = loadstring(game:HttpGet "https://pastebin.com/raw/iXM5yY4w")()
+local DiscordLib = loadstring(game:HttpGet "https://raw.githubusercontent.com/InForsaken/Chronos/main/Discord%20Library.lua")()
 local win = DiscordLib:Window("💫 Chronos GUI v"..versionx.." - "..exec)
 
 -- Sections
 local mainserver = win:Server("Main Section     ", "http://www.roblox.com/asset/?id=11579310982")
-local feserver = win:Server("Animations       ", "http://www.roblox.com/asset/?id=11585480207")
 local adminserver = win:Server("Admin            ", "http://www.roblox.com/asset/?id=11579371312")
 
 -- Subsections
 local generaltab = mainserver:Channel("🌍 General")
 local localtab = mainserver:Channel("👷 Local Player")
 local teleporttab = mainserver:Channel("💨 Teleport")
+local checkpointtab = mainserver:Channel("💡 Checkpoint")
 local esptab = mainserver:Channel("💥 ESP")
 local utilitytab = mainserver:Channel("🔨 Utility")
--- local keytab = mainserver:Channel("🔑 Key Binds")
-
-local sextab = feserver:Channel("🍆 Sex")
-local cooltab = feserver:Channel("🔥 Cool")
-local stoptab = feserver:Channel("✋ Stop")
 
 local commandtab = adminserver:Channel("📜 Commands")
 local creditstab = adminserver:Channel("✨ Credits")
@@ -1256,7 +1251,7 @@ Mouse.KeyDown:connect(function(key)
     end
 end)
 
-generaltab:Textbox("Set Flyspeed", "Default: 100", false, function(speed)
+generaltab:Textbox("Set Flyspeed", "Default: 500", false, function(speed)
     iyflyspeed = speed / 100
 end)
 
@@ -1289,6 +1284,7 @@ end)
 local playertable = {}
 local displaytable = {}
 local playerdisplay = {}
+-- local friendfirst = {}
 local targetuser
 
 for i,v in pairs(game:GetService("Players"):GetDescendants()) do
@@ -1327,6 +1323,42 @@ IYMouse.KeyDown:Connect(function(Key)
         	end
     	end
 	end
+end)
+
+-- Checkpoint Tab
+local check1 = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+local check2 = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+local check3 = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+
+checkpointtab:Button("Set Checkpoint 1", function()
+    check1 = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    checkpointtab:Label("Checkpoint 1 Set")
+end)
+
+checkpointtab:Button("Teleport to Checkpoint 1", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = check1
+end)
+
+checkpointtab:Label(" ")
+
+checkpointtab:Button("Set Checkpoint 2", function()
+    check2 = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    checkpointtab:Label("Checkpoint 2 Set")
+end)
+
+checkpointtab:Button("Teleport to Checkpoint 2", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = check2
+end)
+
+checkpointtab:Label(" ")
+
+checkpointtab:Button("Set Checkpoint 3", function()
+    check3 = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    checkpointtab:Label("Checkpoint 3 Set")
+end)
+
+checkpointtab:Button("Teleport to Checkpoint 3", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = check3
 end)
 
 --[[ Refresh Players Script, needs to be edited so it works
@@ -1386,8 +1418,6 @@ esptab:Slider("Refresh Rate (ms)", 1, 200, 5, function(tog)
 	Options.RefreshRate.Value = tog
 end)
 
-
-
 -- Utility Scripts
 utilitytab:Button("Give BTools", function()
 	local tool1 = Instance.new("HopperBin",game.Players.LocalPlayer.Backpack)
@@ -1446,281 +1476,6 @@ utilitytab:Button("Rejoin", function()
 	end
 end)
 
---[[
-keytab:Bind("Teleport", Enum.KeyCode.T, function(tp) 
-	
-end)
-]]
-
--- # Filtering Enabled Section
--- FE Animations
-
-sextab:Button("Fuck", function()
-	stupid = Instance.new("Animation")
-	stupid.AnimationId = "rbxassetid://148840371"
-	hummy = game:GetService("Players").LocalPlayer.Character.Humanoid
-	pcall(function()
-	hummy.Parent.Pants:Destroy()
-	end)
-	
-	pcall(function()
-	hummy.Parent.Shirt:Destroy()
-	end)
-	notfunny = hummy:LoadAnimation(stupid)
-	notfunny:Play()
-	notfunny:AdjustSpeed(10)
-	while hummy.Parent.Parent ~= nil do
-		wait()
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Username.Text].Character.HumanoidRootPart.CFrame
-	end
-end)
-
-sextab:Button("Basic Bang", function()
-	local number = "4966833843"
-	if Global.Dancing == true then
-		lobal.Dancing = false
-	end
-	
-	local aaa = "rbxassetid://" .. number
-	if (not Global.CloneRig) or game.Players.LocalPlayer.Character ~= Global.CloneRig then
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/ReanimMain.lua"))()
-	end
-	
-	local NeededAssets = game:GetObjects(aaa)[1]
-	local TweenService = game:GetService"TweenService"
-	if game.Players.LocalPlayer.Character.Humanoid:FindFirstChild("Animator") then game.Players.LocalPlayer.Character.Humanoid.Animator:Destroy() end
-	if game.Players.LocalPlayer.Character:FindFirstChild("Animate") then game.Players.LocalPlayer.Character:FindFirstChild("Animate"):Destroy() end
-	local Joints = {
-		["Torso"] = game.Players.LocalPlayer.Character.HumanoidRootPart["RootJoint"],
-		["Right Arm"] =  game.Players.LocalPlayer.Character.Torso["Right Shoulder"],
-		["Left Arm"] =  game.Players.LocalPlayer.Character.Torso["Left Shoulder"],
-		["Head"] =  game.Players.LocalPlayer.Character.Torso["Neck"],
-		["Left Leg"] =  game.Players.LocalPlayer.Character.Torso["Left Hip"],
-		["Right Leg"] =  game.Players.LocalPlayer.Character.Torso["Right Hip"]
-	}
-	Global.dancing = true
-	local speed = 1
-	local keyframes = NeededAssets:GetKeyframes() -- get keyframes, this is better then getchildren bc it gets the correct order
-	repeat
-		for ii,frame in pairs(keyframes) do -- for i,v on each keyframe to get each individual frame
-			local duration = keyframes[ii+1] and keyframes[ii+1].Time - frame.Time or task.wait(1/120)
-			print(tostring(duration))
-			if keyframes[ii-1] then
-				task.wait((frame.Time - keyframes[ii-1].Time)*speed)
-			end
-			for i,v in pairs(frame:GetDescendants()) do -- get each part in the frame
-				if Joints[v.Name] then -- see if the part exists in the joint table
-					TweenService:Create(Joints[v.Name],TweenInfo.new(duration*speed),{Transform = v.CFrame}):Play()
-				end
-			end
-		end
-		task.wait(1/120)
-	until Global.dancing == false
-end)
-
-sextab:Button("Pushups", function()
-	local number = "4966881089"
-	
-	if Global.Dancing == true then
-		Global.Dancing = false
-	end
-	
-	local aaa = "rbxassetid://" .. number
-	if (not Global.CloneRig) or game.Players.LocalPlayer.Character ~= Global.CloneRig then
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/ReanimMain.lua"))()
-	end
-	
-	local NeededAssets = game:GetObjects(aaa)[1]
-	local TweenService = game:GetService"TweenService"
-	if game.Players.LocalPlayer.Character.Humanoid:FindFirstChild("Animator") then game.Players.LocalPlayer.Character.Humanoid.Animator:Destroy() end
-	if game.Players.LocalPlayer.Character:FindFirstChild("Animate") then game.Players.LocalPlayer.Character:FindFirstChild("Animate"):Destroy() end
-	local Joints = {
-		["Torso"] = game.Players.LocalPlayer.Character.HumanoidRootPart["RootJoint"],
-		["Right Arm"] =  game.Players.LocalPlayer.Character.Torso["Right Shoulder"],
-		["Left Arm"] =  game.Players.LocalPlayer.Character.Torso["Left Shoulder"],
-		["Head"] =  game.Players.LocalPlayer.Character.Torso["Neck"],
-		["Left Leg"] =  game.Players.LocalPlayer.Character.Torso["Left Hip"],
-		["Right Leg"] =  game.Players.LocalPlayer.Character.Torso["Right Hip"]
-	}
-	Global.dancing = true
-	local speed = 1
-	local keyframes = NeededAssets:GetKeyframes() -- get keyframes, this is better then getchildren bc it gets the correct order
-	repeat
-		for ii,frame in pairs(keyframes) do -- for i,v on each keyframe to get each individual frame
-			local duration = keyframes[ii+1] and keyframes[ii+1].Time - frame.Time or task.wait(1/120)
-			print(tostring(duration))
-			if keyframes[ii-1] then
-				task.wait((frame.Time - keyframes[ii-1].Time)*speed)
-			end
-			for i,v in pairs(frame:GetDescendants()) do -- get each part in the frame
-				if Joints[v.Name] then -- see if the part exists in the joint table
-					TweenService:Create(Joints[v.Name],TweenInfo.new(duration*speed),{Transform = v.CFrame}):Play()
-				end
-			end
-		end
-		task.wait(1/120)
-	until Global.dancing == false
-end)
-
-sextab:Button("Bend Over", function()
-	local number = "4966882047"
-	
-	if Global.Dancing == true then
-		Global.Dancing = false
-	end
-	
-	local aaa = "rbxassetid://" .. number
-	if (not Global.CloneRig) or game.Players.LocalPlayer.Character ~= Global.CloneRig then
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/ReanimMain.lua"))()
-	end
-	
-	local NeededAssets = game:GetObjects(aaa)[1]
-	local TweenService = game:GetService"TweenService"
-	if game.Players.LocalPlayer.Character.Humanoid:FindFirstChild("Animator") then game.Players.LocalPlayer.Character.Humanoid.Animator:Destroy() end
-	if game.Players.LocalPlayer.Character:FindFirstChild("Animate") then game.Players.LocalPlayer.Character:FindFirstChild("Animate"):Destroy() end
-	local Joints = {
-		["Torso"] = game.Players.LocalPlayer.Character.HumanoidRootPart["RootJoint"],
-		["Right Arm"] =  game.Players.LocalPlayer.Character.Torso["Right Shoulder"],
-		["Left Arm"] =  game.Players.LocalPlayer.Character.Torso["Left Shoulder"],
-		["Head"] =  game.Players.LocalPlayer.Character.Torso["Neck"],
-		["Left Leg"] =  game.Players.LocalPlayer.Character.Torso["Left Hip"],
-		["Right Leg"] =  game.Players.LocalPlayer.Character.Torso["Right Hip"]
-	}
-	Global.dancing = true
-	local speed = 1
-	local keyframes = NeededAssets:GetKeyframes() -- get keyframes, this is better then getchildren bc it gets the correct order
-	repeat
-		for ii,frame in pairs(keyframes) do -- for i,v on each keyframe to get each individual frame
-			local duration = keyframes[ii+1] and keyframes[ii+1].Time - frame.Time or task.wait(1/120)
-			print(tostring(duration))
-			if keyframes[ii-1] then
-				task.wait((frame.Time - keyframes[ii-1].Time)*speed)
-			end
-			for i,v in pairs(frame:GetDescendants()) do -- get each part in the frame
-				if Joints[v.Name] then -- see if the part exists in the joint table
-					TweenService:Create(Joints[v.Name],TweenInfo.new(duration*speed),{Transform = v.CFrame}):Play()
-				end
-			end
-		end
-		task.wait(1/120)
-	until Global.dancing == false
-end)
-
-sextab:Button("Lay Down", function()
-	local number = "4966879039"
-	
-	if Global.Dancing == true then
-		Global.Dancing = false
-	end
-	
-	local aaa = "rbxassetid://" .. number
-	if (not Global.CloneRig) or game.Players.LocalPlayer.Character ~= Global.CloneRig then
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/ReanimMain.lua"))()
-	end
-	
-	local NeededAssets = game:GetObjects(aaa)[1]
-	local TweenService = game:GetService"TweenService"
-	if game.Players.LocalPlayer.Character.Humanoid:FindFirstChild("Animator") then game.Players.LocalPlayer.Character.Humanoid.Animator:Destroy() end
-	if game.Players.LocalPlayer.Character:FindFirstChild("Animate") then game.Players.LocalPlayer.Character:FindFirstChild("Animate"):Destroy() end
-	local Joints = {
-		["Torso"] = game.Players.LocalPlayer.Character.HumanoidRootPart["RootJoint"],
-		["Right Arm"] =  game.Players.LocalPlayer.Character.Torso["Right Shoulder"],
-		["Left Arm"] =  game.Players.LocalPlayer.Character.Torso["Left Shoulder"],
-		["Head"] =  game.Players.LocalPlayer.Character.Torso["Neck"],
-		["Left Leg"] =  game.Players.LocalPlayer.Character.Torso["Left Hip"],
-		["Right Leg"] =  game.Players.LocalPlayer.Character.Torso["Right Hip"]
-	}
-	Global.dancing = true
-	local speed = 1
-	local keyframes = NeededAssets:GetKeyframes() -- get keyframes, this is better then getchildren bc it gets the correct order
-	repeat
-		for ii,frame in pairs(keyframes) do -- for i,v on each keyframe to get each individual frame
-			local duration = keyframes[ii+1] and keyframes[ii+1].Time - frame.Time or task.wait(1/120)
-			print(tostring(duration))
-			if keyframes[ii-1] then
-				task.wait((frame.Time - keyframes[ii-1].Time)*speed)
-			end
-			for i,v in pairs(frame:GetDescendants()) do -- get each part in the frame
-				if Joints[v.Name] then -- see if the part exists in the joint table
-					TweenService:Create(Joints[v.Name],TweenInfo.new(duration*speed),{Transform = v.CFrame}):Play()
-				end
-			end
-		end
-		task.wait(1/120)
-	until Global.dancing == false
-end)
-
-sextab:Button("Blowjob", function()
-	local number = "4963373273"
-	
-	if Global.Dancing == true then
-		Global.Dancing = false
-	end
-	
-	local aaa = "rbxassetid://" .. number
-	if (not Global.CloneRig) or game.Players.LocalPlayer.Character ~= Global.CloneRig then
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/ReanimMain.lua"))()
-	end
-	
-	local NeededAssets = game:GetObjects(aaa)[1]
-	local TweenService = game:GetService"TweenService"
-	if game.Players.LocalPlayer.Character.Humanoid:FindFirstChild("Animator") then game.Players.LocalPlayer.Character.Humanoid.Animator:Destroy() end
-	if game.Players.LocalPlayer.Character:FindFirstChild("Animate") then game.Players.LocalPlayer.Character:FindFirstChild("Animate"):Destroy() end
-	local Joints = {
-		["Torso"] = game.Players.LocalPlayer.Character.HumanoidRootPart["RootJoint"],
-		["Right Arm"] =  game.Players.LocalPlayer.Character.Torso["Right Shoulder"],
-		["Left Arm"] =  game.Players.LocalPlayer.Character.Torso["Left Shoulder"],
-		["Head"] =  game.Players.LocalPlayer.Character.Torso["Neck"],
-		["Left Leg"] =  game.Players.LocalPlayer.Character.Torso["Left Hip"],
-		["Right Leg"] =  game.Players.LocalPlayer.Character.Torso["Right Hip"]
-	}
-	Global.dancing = true
-	local speed = 1
-	local keyframes = NeededAssets:GetKeyframes() -- get keyframes, this is better then getchildren bc it gets the correct order
-	repeat
-		for ii,frame in pairs(keyframes) do -- for i,v on each keyframe to get each individual frame
-			local duration = keyframes[ii+1] and keyframes[ii+1].Time - frame.Time or task.wait(1/120)
-			print(tostring(duration))
-			if keyframes[ii-1] then
-				task.wait((frame.Time - keyframes[ii-1].Time)*speed)
-			end
-			for i,v in pairs(frame:GetDescendants()) do -- get each part in the frame
-				if Joints[v.Name] then -- see if the part exists in the joint table
-					TweenService:Create(Joints[v.Name],TweenInfo.new(duration*speed),{Transform = v.CFrame}):Play()
-				end
-			end
-		end
-		task.wait(1/120)
-	until Global.dancing == false
-end)
-
-cooltab:Button("Hatspin", function()
-	local obese = game:GetService("Players")
-	for i,v in pairs(obese.LocalPlayer.Character:GetChildren()) do
-		if v.ClassName == "Accessory" then
-			local stg = v.Handle:FindFirstChildOfClass("BodyForce")
-			if stg == nil then
-				local a = Instance.new("BodyPosition")
-				local b = Instance.new("BodyAngularVelocity")
-				a.Parent = v.Handle
-				b.Parent = v.Handle
-				v.Handle.AccessoryWeld:Destroy()
-				b.AngularVelocity = Vector3.new(0,100,0)
-				b.MaxTorque = Vector3.new(0,200,0)
-				a.P = 30000
-				a.D = 50
-				game:GetService("RunService").Stepped:connect(function()
-				a.Position = obese.LocalPlayer.Character.Head.Position
-				end)
-			end
-		end
-	end
-end)
-
-stoptab:Button("Stop Animation", function()
-	Global.dancing = false
-end)
-
 -- # Admin Section
 -- Infinite Yield
 commandtab:Button("Load Infinite Yield", function()
@@ -1757,4 +1512,5 @@ pcall(function()
 end)
 
 -- Check if loaded correctly
-creditstab:Label("Script loaded successfully!")
+iyflyspeed = 5
+print("💫 Chronos GUI v"..versionx.." - Loaded Successfully!")
