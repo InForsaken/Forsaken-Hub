@@ -1,4 +1,4 @@
-local versionx = "0.7"
+local versionx = "0.71"
 
 --[[
 Chams
@@ -1326,9 +1326,9 @@ IYMouse.KeyDown:Connect(function(Key)
 end)
 
 -- Checkpoint Tab
-local check1 = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-local check2 = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-local check3 = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+local check1
+local check2
+local check3
 
 checkpointtab:Button("Set Checkpoint 1", function()
     check1 = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
