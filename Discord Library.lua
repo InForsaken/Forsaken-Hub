@@ -93,6 +93,7 @@ function DiscordLib:Window(text)
 	local minimized = false
 	local fs = false
 	local settingsopened = false
+	local closed = false
 	local MainFrame = Instance.new("Frame")
 	local TopFrame = Instance.new("Frame")
 	local Title = Instance.new("TextLabel")
@@ -290,8 +291,22 @@ function DiscordLib:Window(text)
 	CloseBtn.MouseButton1Click:Connect(
 		function()
 			MainFrame:TweenSize(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
+			closed = true
 		end
 	)
+
+	UserInputService.InputBegan:Connect(function(input)
+		if input.KeyCode == Enum.KeyCode.RightControl then
+			if closed == true then
+				MainFrame:TweenSize(UDim2.new(0, 681, 0, 396), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
+				minimized = false
+				closed = false
+			elseif closed == false then
+				MainFrame:TweenSize(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
+				closed = true
+			end
+		end
+	end)
 
 	CloseBtn.MouseEnter:Connect(
 		function()
