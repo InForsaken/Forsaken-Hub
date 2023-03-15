@@ -297,15 +297,13 @@ function DiscordLib:Window(text)
 
 	UserInputService.InputBegan:Connect(function(input)
 		if input.KeyCode == Enum.KeyCode.RightControl then
-			if not getgenv().Destroy then
-				if closed == true then
-					MainFrame:TweenSize(UDim2.new(0, 681, 0, 396), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
-					minimized = false
-					closed = false
-				elseif closed == false then
-					MainFrame:TweenSize(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
-					closed = true
-				end
+			if closed == true then
+				MainFrame:TweenSize(UDim2.new(0, 681, 0, 396), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
+				minimized = false
+				closed = false
+			elseif closed == false then
+				MainFrame:TweenSize(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
+				closed = true
 			end
 		end
 	end)
