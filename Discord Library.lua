@@ -298,7 +298,7 @@ function DiscordLib:Window(text)
 	UserInputService.InputBegan:Connect(function(input)
 		if input.KeyCode == Enum.KeyCode.RightControl then
 			if closed == true then
-				if getgenv().Destroy then
+				if not getgenv().Destroy then
 					MainFrame:TweenSize(UDim2.new(0, 681, 0, 396), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
 					minimized = false
 					closed = false
