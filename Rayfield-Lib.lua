@@ -407,10 +407,10 @@ function RayfieldLibrary:Notify(Title,Content,Image)
 		end
 
 
-		Notification.Title.Text = Title or "Toggle Menu"
+		Notification.Title.Text = Title or "Unknown"
 		Notification.Title.TextTransparency = 1
 		Notification.Title.TextColor3 = Color3.fromRGB(240,240,240)
-		Notification.Description.Text = Content or "Press RightControl"
+		Notification.Description.Text = Content or "Unknown"
 		Notification.Description.TextTransparency = 1
 		Notification.Description.TextColor3 = Color3.fromRGB(240,240,240)
 		if Image then
