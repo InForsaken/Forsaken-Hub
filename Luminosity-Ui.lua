@@ -856,7 +856,8 @@ function Luminosity.new(Name, Header, Icon)
             ImageColor3 = Color3.fromRGB(50, 53, 59),
             ScaleType = Enum.ScaleType.Slice,
             SliceCenter = Rect.new(100, 100, 100, 100),
-            SliceScale = 0.1
+            SliceScale = 0.1,
+	    Visible = true
         },
 
         -- Children --
