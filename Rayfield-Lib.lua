@@ -493,7 +493,7 @@ end
 
 function Hide()
 	Debounce = true
-	RayfieldLibrary:Notify("Interface Hidden","The interface has been hidden, you can unhide the interface by tapping RightShift")
+	--RayfieldLibrary:Notify("Interface Hidden","The interface has been hidden, you can unhide the interface by tapping RightShift")
 	TweenService:Create(Main, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {Size = UDim2.new(0, 470, 0, 400)}):Play()
 	TweenService:Create(Main.Topbar, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {Size = UDim2.new(0, 470, 0, 45)}):Play()
 	TweenService:Create(Main, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {BackgroundTransparency = 1}):Play()
