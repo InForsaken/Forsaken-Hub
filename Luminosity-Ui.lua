@@ -21,8 +21,6 @@ if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 
-local UserInputService = game:GetService("UserInputService")
-
 -- // CONSTANTS \\ --
 -- [ Services ] --
 local Services = setmetatable({}, {__index = function(Self, Index)
@@ -1531,22 +1529,5 @@ function Luminosity.new(Name, Header, Icon)
         rawset(Self, Index, Value)
     end})
 end
-
-UserInputService.InputBegan:Connect(
-	function(input)
-        if input.KeyCode == Enum.KeyCode.RightControl then
-            if not debounce then
-                if ScreenGui.Enabled == true then
-                    ScreenGui.Enabled = false
-                elseif ScreenGui.Enabled == false then
-                    ScreenGui.Enabled = true
-                end
-                debounce = true
-                wait(0.5)
-                debounce = false
-            end
-        end
-    end
-)
 
 return Luminosity
