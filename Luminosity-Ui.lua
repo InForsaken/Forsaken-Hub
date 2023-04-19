@@ -857,7 +857,6 @@ function Luminosity.new(Name, Header, Icon)
             ScaleType = Enum.ScaleType.Slice,
             SliceCenter = Rect.new(100, 100, 100, 100),
             SliceScale = 0.1,
-	    Visible = true
         },
 
         -- Children --
@@ -1537,10 +1536,10 @@ UserInputService.InputBegan:Connect(
 	function(input)
         if input.KeyCode == Enum.KeyCode.RightControl then
             if not debounce then
-                if Main.Visible == true then
-                    Main.Visible = false
-                elseif Main.Visible == false then
-                    Main.Visible = true
+                if ScreenGui.Enabled == true then
+                    ScreenGui.Enabled = false
+                elseif ScreenGui.Enabled == false then
+                    ScreenGui.Enabled = true
                 end
                 debounce = true
                 wait(0.5)
