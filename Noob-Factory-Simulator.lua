@@ -283,7 +283,7 @@ coroutine.wrap(function()
                             game:GetService("StarterGui"):SetCore("SendNotification",{
                                 Title = "Unit Alert",
                                 Text = "Case "..x.." ["..Quality.."]\nReason: "..Reason,
-                                Duration = 0.1
+                                Duration = 0.01
                             })
                         elseif getgenv().AutoBank == true then
                             game:GetService("StarterGui"):SetCore("SendNotification",{
