@@ -40,6 +40,7 @@ local Bank = game:GetService("Workspace"):WaitForChild("Homes"):WaitForChild(tos
 local EnchantsBalance = {"Strength", "Protection", "Energized"}
 local EnchantsGlass = {"Strength", "Energized", "Speed"}
 
+local Message
 local Case
 local Pick
 local Reason
@@ -236,17 +237,17 @@ coroutine.wrap(function()
                     if not table.find(getgenv().BadQuality,Quality) then
                         if Attack >= getgenv().MinimumStat then
                             Pick = true
-                            Reason = "High Attack Stat"
+                            Reason = Attack.." Attack Stat"
                         end
                         
                         if Health >= getgenv().MinimumStat then
                             Pick = true
-                            Reason = "High Health Stat"
+                            Reason = Health.." Health Stat"
                         end
                         
                         if Price >= getgenv().MinimumValue then
                             Pick = true
-                            Reason = "High Value Multiplier"
+                            Reason = Price.." Value Multiplier"
                         end
                     end
                     
@@ -278,17 +279,20 @@ coroutine.wrap(function()
                     end
                     
                     if Pick == true then
-                        print("\nUnit Alert: Case "..x.."\nReason: "..Reason.."\n")
+                        Message = "\n[ Unit Alert ]\nCase Number: "..x.."\nReason: "..Reason.."\n"
+			print(Message)
                         if getgenv().AutoBank == false then
                             game:GetService("StarterGui"):SetCore("SendNotification",{
+                                Title = "Unit Alert",
+                                Text = "Case Number: "..x.." ["..Quality.."]\nReason: "..Reason,						
                                 Title = "Unit Alert",
                                 Text = "Case "..x.." ["..Quality.."]\nReason: "..Reason,
                                 Duration = 0.01
                             })
                         elseif getgenv().AutoBank == true then
                             game:GetService("StarterGui"):SetCore("SendNotification",{
-                                Title = "Notification",
-                                Text = "Unit Alert: Case "..x.."\nReason: "..Reason,
+                                Title = "Unit Alert",
+                                Text = "Case Number: "..x.."\nReason: "..Reason,
                                 Duration = 0.5
                             })
                             Case:WaitForChild("Events"):WaitForChild("EquipNoob"):InvokeServer()
@@ -304,6 +308,19 @@ coroutine.wrap(function()
                         for z=1, 8, 1 do
                             Bank:WaitForChild("4"):WaitForChild(tostring(z)):WaitForChild("Events"):WaitForChild("PlaceNoob"):InvokeServer(unpack(argSlot))
                         end
+							
+			if getgenv().Webhook then
+			    local response = syn.request(
+			        {
+				    Url = getgenv().Webhook,
+				    Method = "POST",
+				    Headers = {
+				        ["Content-Type"] = "application/json"
+    				    },
+			            Body = game:GetService('HttpService'):JSONEncode({content = Message})
+				}
+			    );
+			end
                     end
                 end
             end
