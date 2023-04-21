@@ -328,8 +328,6 @@ coroutine.wrap(function()
                         for z=1, 8, 1 do
                             Bank:WaitForChild("4"):WaitForChild(tostring(z)):WaitForChild("Events"):WaitForChild("PlaceNoob"):InvokeServer(unpack(argSlot))
                         end
-							
-			Webhook()
                     end
                 end
             end
