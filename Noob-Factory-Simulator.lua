@@ -423,7 +423,7 @@ end)()
 
 coroutine.wrap(function()
     while wait() do
-        if getgenv().AutoDungeon == true then
+        if getgenv().AutoFarm == true then
             if CanAttack == true then
                 AttackDN()
                 AttackDB()
@@ -435,7 +435,7 @@ coroutine.wrap(function()
 end)()
 
 game.DescendantRemoving:Connect(function(ins)
-    if getgenv().AutoDungeon == true then
+    if getgenv().AutoFarm == true then
         if ins.Name == "Dungeon Boss" then
             CanAttack = true
         end
