@@ -68,6 +68,7 @@ function FindCase(par)
     end
 end
 
+--[[
 function Webhook()
     if getgenv().Webhook then
         if not debounce then
@@ -87,6 +88,7 @@ function Webhook()
         end
     end
 end
+]]
 
 -- Main
 local Main = Window:CreateTab("Main")
