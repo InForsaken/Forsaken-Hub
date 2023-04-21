@@ -68,6 +68,24 @@ function FindCase(par)
     end
 end
 
+if getgenv().Webhook then
+    if not debounce then
+        local response = syn.request(
+            {
+                Url = getgenv().Webhook,
+                Method = "POST",
+                Headers = {
+                    ["Content-Type"] = "application/json"
+                },
+                Body = game:GetService('HttpService'):JSONEncode({content = Message})
+            }
+        );
+        debounce = true
+        wait(5)
+        debounce = false
+    end
+end
+
 -- Main
 local Main = Window:CreateTab("Main")
 
@@ -309,18 +327,7 @@ coroutine.wrap(function()
                             Bank:WaitForChild("4"):WaitForChild(tostring(z)):WaitForChild("Events"):WaitForChild("PlaceNoob"):InvokeServer(unpack(argSlot))
                         end
 							
-			if getgenv().Webhook then
-			    local response = syn.request(
-			        {
-				    Url = getgenv().Webhook,
-				    Method = "POST",
-				    Headers = {
-				        ["Content-Type"] = "application/json"
-    				    },
-			            Body = game:GetService('HttpService'):JSONEncode({content = Message})
-				}
-			    );
-			end
+			Webhook()
                     end
                 end
             end
