@@ -211,7 +211,8 @@ local AutoFarm = AutoFarms:CreateToggle({
 	CurrentValue = getgenv().AutoFarm,
 	Flag = "AutoFarm", 
 	Callback = function(Value)
-    	getgenv().AutoFarm = Value
+    	        getgenv().AutoFarm = Value
+		CanAttack = true
 	end,
 })
 
