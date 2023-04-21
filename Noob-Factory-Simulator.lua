@@ -68,21 +68,23 @@ function FindCase(par)
     end
 end
 
-if getgenv().Webhook then
-    if not debounce then
-        local response = syn.request(
-            {
-                Url = getgenv().Webhook,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = game:GetService('HttpService'):JSONEncode({content = Message})
-            }
-        );
-        debounce = true
-        wait(5)
-        debounce = false
+function Webhook()
+    if getgenv().Webhook then
+        if not debounce then
+            local response = syn.request(
+                {
+                    Url = getgenv().Webhook,
+                    Method = "POST",
+                    Headers = {
+                        ["Content-Type"] = "application/json"
+                    },
+                    Body = game:GetService('HttpService'):JSONEncode({content = Message})
+                }
+            );
+            debounce = true
+            wait(5)
+            debounce = false
+        end
     end
 end
 
