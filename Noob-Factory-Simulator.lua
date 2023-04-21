@@ -39,6 +39,8 @@ local Bank = game:GetService("Workspace"):WaitForChild("Homes"):WaitForChild(tos
 
 local EnchantsBalance = {"Strength", "Protection", "Energized"}
 local EnchantsGlass = {"Strength", "Energized", "Speed"}
+local Attacking = getgenv().Units
+local CanAttack = true
 
 local Message
 local Case
@@ -68,6 +70,32 @@ function FindCase(par)
     end
 end
 
+function AttackDN()
+    for i,v in ipairs(game:GetService("Workspace"):GetChildren()) do
+        if v.Name == "Dungeon Noob" then
+            if Attacking ~= 0 then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.HumanoidRootPart.Position)
+                fireclickdetector(v.ClickDetector)
+                Wait(0.1)
+                Attacking = Attacking - 1
+            end
+        end
+    end
+    Attacking = getgenv().Units
+end
+
+function AttackDB()
+    for i,v in ipairs(game:GetService("Workspace"):GetChildren()) do
+        if v.Name == "Dungeon Boss" then
+            for z=1, getgenv().Units, 1 do
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.HumanoidRootPart.Position)
+                fireclickdetector(v.ClickDetector)
+                CanAttack = false
+            end
+        end
+    end
+end
+
 --[[
 function Webhook()
     if getgenv().Webhook then
@@ -92,7 +120,6 @@ end
 
 -- Main
 local Main = Window:CreateTab("Main")
-
 local MainSec1 = Main:CreateSection("Noob Farm")
 
 local AutoDetect = Main:CreateToggle({
@@ -155,13 +182,14 @@ local EnchantType = Main:CreateDropdown({
 	end,
 })
 
-local FarmSlot = Main:CreateInput({
+local FarmSlot = Main:CreateDropdown({
 	Name = "Hotbar Slot used to farm",
-	PlaceholderText = getgenv().FarmSlot,
-	RemoveTextAfterFocusLost = false,
-	Callback = function(Text)
-		getgenv().FarmSlot = tonumber(Text)
-		print("Slot used to farm: "..getgenv().FarmSlot)
+	Options = {1, 2, 3},
+	CurrentOption = getgenv().FarmSlot,
+	Flag = "FarmSlot",
+	Callback = function(Option)
+	  	  getgenv().FarmSlot = Option
+	  	  print("Slot used to farm: "..getgenv().FarmSlot)
 	end,
 })
 
@@ -172,12 +200,39 @@ end
 ClassesKept = ClassesKept.."\nEdit code to change"
 
 local ClassInfo = Main:CreateParagraph({Title = "Keep Classes:", Content = ClassesKept})
-
 local QualityInfo = Main:CreateParagraph({Title = "Ignored Qualities:", Content = getgenv().BadQuality[1].." to "..getgenv().BadQuality[#getgenv().BadQuality].."\n\nEdit code to change"})
+
+-- AutoFarm
+local AutoFarms = Window:CreateTab("AutoFarm")
+local AutoFarmSec1 = AutoFarm:CreateSection("Utility")
+
+local AutoFarm = AutoFarms:CreateToggle({
+	Name = "AutoFarm Dungeon",
+	CurrentValue = getgenv().AutoFarm,
+	Flag = "AutoFarm", 
+	Callback = function(Value)
+    	getgenv().AutoFarm = Value
+	end,
+})
+
+local AutoFarmSec2 = AutoFarm:CreateSection("Use these if ghost mobs appear")
+
+local DelUnit1 = AutoFarms:CreateButton({
+	Name = "Destroy Dungeon Noob Instance",
+	Callback = function()
+		game:GetService("Workspace"):WaitForChild("Dungeon Noob"):Destroy()
+	end,
+})
+
+local DelUnit2 = AutoFarms:CreateButton({
+	Name = "Destroy Dungeon Boss Instance",
+	Callback = function()
+		game:GetService("Workspace"):WaitForChild("Dungeon Boss"):Destroy()
+	end,
+})
 
 -- Utilities
 local Utilities = Window:CreateTab("Utilities")
-
 local UtilitiesSec1 = Utilities:CreateSection("Utility")
 
 local SwapToggle = Utilities:CreateKeybind({
@@ -209,6 +264,7 @@ local AutoBuyValue = Utilities:CreateToggle({
     	getgenv().AutoBuyValue = Value
 	end,
 })
+
 local ABV
 local AutoBuyValueToggle = Utilities:CreateKeybind({
 	Name = "Auto Upgrade Evaluator Toggle",
@@ -236,7 +292,7 @@ local Destroy = Utilities:CreateButton({
 	end,
 })
 
--- AutoFarm
+-- AutoDetect
 coroutine.wrap(function()
     while wait() do
         if getgenv().AutoDetect == true then
@@ -302,7 +358,7 @@ coroutine.wrap(function()
                     
                     if Pick == true then
                         Message = "\n[ Unit Alert ]\nCase Number: "..x.."\nReason: "..Reason.."\n"
-			print(Message)
+			            print(Message)
                         if getgenv().AutoBank == false then
                             game:GetService("StarterGui"):SetCore("SendNotification",{
                                 Title = "Unit Alert",
@@ -363,3 +419,24 @@ coroutine.wrap(function()
         end
     end
 end)()
+
+coroutine.wrap(function()
+    while wait() do
+        if getgenv().AutoDungeon == true then
+            if CanAttack == true then
+                AttackDN()
+                AttackDB()
+            
+                Wait(2)
+            end
+        end
+    end
+end)()
+
+game.DescendantRemoving:Connect(function(ins)
+    if getgenv().AutoDungeon == true then
+        if ins.Name == "Dungeon Boss" then
+            CanAttack = true
+        end
+    end
+end)
