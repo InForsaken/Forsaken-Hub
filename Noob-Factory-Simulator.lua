@@ -204,7 +204,7 @@ local QualityInfo = Main:CreateParagraph({Title = "Ignored Qualities:", Content 
 
 -- AutoFarm
 local AutoFarms = Window:CreateTab("AutoFarm")
-local AutoFarmSec1 = AutoFarm:CreateSection("Utility")
+local AutoFarmSec1 = AutoFarms:CreateSection("Dungeon AutoFarm")
 
 local AutoFarm = AutoFarms:CreateToggle({
 	Name = "AutoFarm Dungeon",
