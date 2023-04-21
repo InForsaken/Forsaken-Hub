@@ -216,7 +216,7 @@ local AutoFarm = AutoFarms:CreateToggle({
 	end,
 })
 
-local AutoFarmSec2 = AutoFarm:CreateSection("Use these if ghost mobs appear")
+local AutoFarmSec2 = AutoFarms:CreateSection("Use these if ghost mobs appear")
 
 local DelUnit1 = AutoFarms:CreateButton({
 	Name = "Destroy Dungeon Noob Instance",
